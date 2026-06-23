@@ -449,12 +449,24 @@ PrefabInstance:
       value: House B
       objectReference: {fileID: 0}
     - target: {fileID: 6846026376306589792, guid: 6e69cd36777afed4ea10f82958ae0dfd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.8508697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6846026376306589792, guid: 6e69cd36777afed4ea10f82958ae0dfd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.7712293
+      objectReference: {fileID: 0}
+    - target: {fileID: 6846026376306589792, guid: 6e69cd36777afed4ea10f82958ae0dfd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.7639735
+      objectReference: {fileID: 0}
+    - target: {fileID: 6846026376306589792, guid: 6e69cd36777afed4ea10f82958ae0dfd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -188.5
       objectReference: {fileID: 0}
     - target: {fileID: 6846026376306589792, guid: 6e69cd36777afed4ea10f82958ae0dfd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00001
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 6846026376306589792, guid: 6e69cd36777afed4ea10f82958ae0dfd, type: 3}
       propertyPath: m_LocalPosition.z
