@@ -12,12 +12,23 @@ public class SingleDoorCloseAndOpen : MonoBehaviour
 
     void Start()
     {
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+        var playerObj = GameObject.FindGameObjectWithTag("Player");
+        player = playerObj != null ? playerObj.transform : null;
+=======
+>>>>>>> 1736babd4d6c2295cca066ed8e236f94e848a213
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
 
         if (playerObj != null)
         {
             player = playerObj.transform;
         }
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> 1736babd4d6c2295cca066ed8e236f94e848a213
 
         closedRotation = transform.localRotation;
         openRotation = Quaternion.Euler(
@@ -44,7 +55,18 @@ public class SingleDoorCloseAndOpen : MonoBehaviour
             }
             else
             {
+<<<<<<< HEAD
                 transform.localRotation = closedRotation;
+=======
+<<<<<<< Updated upstream
+                if (door != null)
+                    door.transform.Rotate(0, -90, 0);
+                else
+                    transform.localRotation = closedRotation;
+=======
+                transform.localRotation = closedRotation;
+>>>>>>> Stashed changes
+>>>>>>> 1736babd4d6c2295cca066ed8e236f94e848a213
             }
         }
     }
