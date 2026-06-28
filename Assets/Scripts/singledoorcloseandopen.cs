@@ -34,6 +34,7 @@ public class SingleDoorCloseAndOpen : MonoBehaviour
         float distance = Vector3.Distance(player.position, transform.position);
 
         if (distance <= interactionDistance && (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.O)))
+>>>>>>> doormessage
         {
             isOpen = !isOpen;
 
@@ -53,6 +54,7 @@ public class SingleDoorCloseAndOpen : MonoBehaviour
             }
         }
     }
+>>>>>>> doormessage
             }
         }
     }
