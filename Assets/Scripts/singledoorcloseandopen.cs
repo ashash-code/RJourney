@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class SingleDoorCloseAndOpen : MonoBehaviour
 {
-    public GameObject door;
-    public float interactionDistance = 5f;
+    public float interactionDistance = 3f;
 
     private Transform player;
     private bool isOpen = false;
@@ -13,8 +12,12 @@ public class SingleDoorCloseAndOpen : MonoBehaviour
 
     void Start()
     {
-        var playerObj = GameObject.FindGameObjectWithTag("Player");
-        player = playerObj != null ? playerObj.transform : null;
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
 
         closedRotation = transform.localRotation;
         openRotation = Quaternion.Euler(
@@ -37,17 +40,11 @@ public class SingleDoorCloseAndOpen : MonoBehaviour
 
             if (isOpen)
             {
-                if (door != null)
-                    door.transform.Rotate(0, 90, 0);
-                else
-                    transform.localRotation = openRotation;
+                transform.localRotation = openRotation;
             }
             else
             {
-                if (door != null)
-                    door.transform.Rotate(0, -90, 0);
-                else
-                    transform.localRotation = closedRotation;
+                transform.localRotation = closedRotation;
             }
         }
     }
