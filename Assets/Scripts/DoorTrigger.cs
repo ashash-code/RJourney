@@ -13,14 +13,15 @@ public class DoorTrigger : MonoBehaviour
 
     void Start()
     {
-        player = FindObjectOfType<CharacterController>()?.transform;
-        if (player == null)
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObj != null)
         {
-            player = FindObjectOfType<Rigidbody>()?.transform;
+            player = playerObj.transform;
         }
-        if (player == null)
+        else
         {
-            player = GameObject.Find("Player")?.transform;
+            Debug.LogError("Player with tag 'Player' not found!");
         }
     }
 
@@ -39,26 +40,20 @@ public class DoorTrigger : MonoBehaviour
             playerInRange = false;
         }
     }
-        }
-    }
 
     void Update()
     {
-    void Update()
-    {
-        float distance = (player == null) ? float.MaxValue : Vector3.Distance(player.position, transform.position);
+        if (player == null) return;
 
-        if (!playerInRange && distance > interactionDistance) return;
+        float distance = Vector3.Distance(player.position, transform.position);
+
+        if (!playerInRange && distance > interactionDistance)
+            return;
 
         if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.O))
         {
             if (!isOpen)
-        {
-            if (!isOpen)
             {
-                doorL.transform.localRotation = Quaternion.Euler(0, -90, 0);
-                doorR.transform.localRotation = Quaternion.Euler(0, 90, 0);
-                isOpen = true;
                 doorL.transform.localRotation = Quaternion.Euler(0, -90, 0);
                 doorR.transform.localRotation = Quaternion.Euler(0, 90, 0);
                 isOpen = true;

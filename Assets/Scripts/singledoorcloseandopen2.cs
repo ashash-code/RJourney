@@ -23,17 +23,15 @@ public class SingleDoorCloseAndOpen2 : MonoBehaviour
             transform.localEulerAngles.z
         );
     }
-    }
 
-    void Update()
-    {
     void Update()
     {
         if (player == null) return;
 
         float distance = Vector3.Distance(player.position, transform.position);
 
-        if (distance <= interactionDistance && (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.O)))
+        if (distance <= interactionDistance &&
+            (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.O)))
         {
             isOpen = !isOpen;
 
@@ -50,9 +48,6 @@ public class SingleDoorCloseAndOpen2 : MonoBehaviour
                     door.transform.Rotate(0, -90, 0);
                 else
                     transform.localRotation = closedRotation;
-            }
-        }
-    }
             }
         }
     }
