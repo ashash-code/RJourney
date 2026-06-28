@@ -31,7 +31,12 @@ public class SingleDoorCloseAndOpen : MonoBehaviour
             transform.position
         );
 
+<<<<<<< Updated upstream
         if (distance <= interactionDistance && Input.GetKeyDown(KeyCode.E))
+=======
+        if (distance <= interactionDistance &&
+            (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.O)))
+>>>>>>> Stashed changes
         {
             isOpen = !isOpen;
 
@@ -41,7 +46,14 @@ public class SingleDoorCloseAndOpen : MonoBehaviour
             }
             else
             {
+<<<<<<< Updated upstream
                 transform.localRotation = closedRotation;
+=======
+                if (door != null)
+                    door.transform.Rotate(0, -90, 0);
+                else
+                    transform.localRotation = closedRotation;
+>>>>>>> Stashed changes
             }
         }
     }
