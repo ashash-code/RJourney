@@ -5,8 +5,10 @@ public class DoorTrigger : MonoBehaviour
     public GameObject doorL;
     public GameObject doorR;
     public float interactionDistance = 80f;
+    public DoorMessage doorMessage;
 
     private bool isOpen = false;
+    private bool playerInRange = false;
     private Transform player;
 
     void Start()
@@ -22,19 +24,49 @@ public class DoorTrigger : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+        }
+    }
+        }
+    }
+
     void Update()
     {
-        if (player == null) return;
+    void Update()
+    {
+        float distance = (player == null) ? float.MaxValue : Vector3.Distance(player.position, transform.position);
 
-        float distance = Vector3.Distance(player.position, transform.position);
+        if (!playerInRange && distance > interactionDistance) return;
 
-        if (Input.GetKeyDown(KeyCode.O) && distance <= interactionDistance)
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.O))
+        {
+            if (!isOpen)
         {
             if (!isOpen)
             {
                 doorL.transform.localRotation = Quaternion.Euler(0, -90, 0);
                 doorR.transform.localRotation = Quaternion.Euler(0, 90, 0);
                 isOpen = true;
+                doorL.transform.localRotation = Quaternion.Euler(0, -90, 0);
+                doorR.transform.localRotation = Quaternion.Euler(0, 90, 0);
+                isOpen = true;
+
+                if (doorMessage != null)
+                {
+                    doorMessage.HideForever();
+                }
             }
             else
             {
