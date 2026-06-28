@@ -13,8 +13,17 @@ public class SingleDoorCloseAndOpen : MonoBehaviour
 
     void Start()
     {
+<<<<<<< Updated upstream
         var playerObj = GameObject.FindGameObjectWithTag("Player");
         player = playerObj != null ? playerObj.transform : null;
+=======
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
+>>>>>>> Stashed changes
 
         closedRotation = transform.localRotation;
         openRotation = Quaternion.Euler(
@@ -44,10 +53,14 @@ public class SingleDoorCloseAndOpen : MonoBehaviour
             }
             else
             {
+<<<<<<< Updated upstream
                 if (door != null)
                     door.transform.Rotate(0, -90, 0);
                 else
                     transform.localRotation = closedRotation;
+=======
+                transform.localRotation = closedRotation;
+>>>>>>> Stashed changes
             }
         }
     }
