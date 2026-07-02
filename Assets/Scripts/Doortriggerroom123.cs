@@ -3,39 +3,31 @@ using UnityEngine;
 public class DoorTriggerroom123 : MonoBehaviour
 {
     public GameObject door;
-    public float interactionDistance = 80f;
 
     private bool isOpen = false;
-    private Transform player;
+    private bool playerInRange = false;
 
-    void Start()
+    void OnTriggerEnter(Collider other)
     {
-        player = FindAnyObjectByType<CharacterController>()?.transform;
+        if (other.CompareTag("Player"))
+            playerInRange = true;
+    }
 
-        if (player == null)
-        {
-            player = GameObject.Find("Player")?.transform;
-        }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+            playerInRange = false;
     }
 
     void Update()
     {
-        if (player == null) return;
+        if (!playerInRange) return;
 
-        float distance = Vector3.Distance(player.position, transform.position);
-
-        if (Input.GetKeyDown(KeyCode.E) && distance <= interactionDistance)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (!isOpen)
-            {
-                door.transform.localRotation = Quaternion.Euler(0, 90, 0);
-                isOpen = true;
-            }
-            else
-            {
-                door.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                isOpen = false;
-            }
+            isOpen = !isOpen;
+
+            door.transform.localRotation = Quaternion.Euler(0, isOpen ? 90 : 0, 0);
         }
     }
 }
