@@ -50,7 +50,7 @@ public class DoorTrigger : MonoBehaviour
         if (!playerInRange && distance > interactionDistance)
             return;
 
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.E))
         {
             if (!isOpen)
             {
