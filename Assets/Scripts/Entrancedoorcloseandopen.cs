@@ -1,15 +1,16 @@
 using UnityEngine;
 
-public class DoorTrigger : MonoBehaviour
+public class Entrancedoorcloseandopen : MonoBehaviour
 {
     public GameObject doorL;
     public GameObject doorR;
-    public float interactionDistance = 80f;
-    public DoorMessage doorMessage;
+    public float interactionDistance = 3f;
 
     private bool isOpen = false;
     private bool playerInRange = false;
     private Transform player;
+
+    private EntranceMessage entranceMessage;
 
     void Start()
     {
@@ -23,6 +24,8 @@ public class DoorTrigger : MonoBehaviour
         {
             Debug.LogError("Player with tag 'Player' not found!");
         }
+
+        entranceMessage = GetComponent<EntranceMessage>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -47,28 +50,30 @@ public class DoorTrigger : MonoBehaviour
 
         float distance = Vector3.Distance(player.position, transform.position);
 
-        if (!playerInRange && distance > interactionDistance)
+        if (!playerInRange || distance > interactionDistance)
             return;
 
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.E))
+        if (!isOpen && Input.GetKeyDown(KeyCode.E))
         {
-            if (!isOpen)
-            {
-                doorL.transform.localRotation = Quaternion.Euler(0, -90, 0);
-                doorR.transform.localRotation = Quaternion.Euler(0, 90, 0);
-                isOpen = true;
+            doorL.transform.localRotation = Quaternion.Euler(0, -90, 0);
+            doorR.transform.localRotation = Quaternion.Euler(0, 90, 0);
 
-                if (doorMessage != null)
-                {
-                    doorMessage.HideForever();
-                }
-            }
-            else
+            isOpen = true;
+
+            // Hide the entrance message forever
+            if (entranceMessage != null)
             {
-                doorL.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                doorR.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                isOpen = false;
+                entranceMessage.DoorOpened();
             }
+
+            // Disable door colliders so they don't block the player
+            Collider leftCol = doorL.GetComponent<Collider>();
+            if (leftCol != null)
+                leftCol.enabled = false;
+
+            Collider rightCol = doorR.GetComponent<Collider>();
+            if (rightCol != null)
+                rightCol.enabled = false;
         }
     }
 }
