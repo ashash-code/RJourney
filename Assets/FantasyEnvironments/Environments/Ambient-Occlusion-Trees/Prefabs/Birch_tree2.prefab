@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 33676749896138740}
   - component: {fileID: 23776673428206360}
   - component: {fileID: 136370252919308002}
+  - component: {fileID: -2113350459266400637}
+  - component: {fileID: 5935821134618033194}
   m_Layer: 0
   m_Name: Birch_tree2
   m_TagString: Untagged
@@ -115,3 +117,37 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 0.01, y: 1.47, z: -0.33}
+--- !u!114 &-2113350459266400637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951202686989992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dffe19c01a706d54da3426b93c19396b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractableObject
+  ItemName: Tree
+--- !u!65 &5935821134618033194
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951202686989992}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8.457371, y: 9.351013, z: 8.288403}
+  m_Center: {x: 0.14087486, y: 3.9935608, z: -0.6741998}

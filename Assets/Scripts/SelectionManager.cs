@@ -1,0 +1,54 @@
+using UnityEngine;
+using TMPro;
+
+public class SelectionManager : MonoBehaviour
+{
+    public GameObject interaction_Info_UI;
+    private TMP_Text interaction_text;
+
+    public float interactionDistance = 3f;
+
+    void Start()
+    {
+        interaction_text = interaction_Info_UI.GetComponent<TMP_Text>();
+
+        if (interaction_text == null)
+        {
+            Debug.LogError("No TMP_Text component found on interaction_Info_UI!");
+        }
+
+        interaction_Info_UI.SetActive(false);
+    }
+
+    void Update()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, interactionDistance))
+        {
+            InteractableObject interactable = hit.transform.GetComponent<InteractableObject>();
+
+            if (interactable != null)
+            {
+                interaction_text.text = interactable.GetItemName();
+                interaction_Info_UI.SetActive(true);
+
+                // Click lang kapag nakatutok sa item
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Debug.Log("Item added to inventory " );
+                    Destroy(interactable.gameObject);
+                }
+            }
+            else
+            {
+                interaction_Info_UI.SetActive(false);
+            }
+        }
+        else
+        {
+            interaction_Info_UI.SetActive(false);
+        }
+    }
+}
