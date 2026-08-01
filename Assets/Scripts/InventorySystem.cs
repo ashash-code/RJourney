@@ -50,14 +50,22 @@ public class InventorySystem : MonoBehaviour
 
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.I) && !isOpen)
         {
-
             Debug.Log("i is pressed");
-            inventoryScreenUI.SetActive(true);
-            isOpen = true;
 
+            inventoryScreenUI.SetActive(true);
+
+            // refresh items sa slots
+            foreach (GameObject slot in SlotList)
+            {
+                foreach (Transform item in slot.transform)
+                {
+                    item.gameObject.SetActive(true);
+                }
+            }
+
+            isOpen = true;
         }
         else if (Input.GetKeyDown(KeyCode.I) && isOpen)
         {
@@ -81,11 +89,15 @@ public class InventorySystem : MonoBehaviour
             return;
         }
 
-        itemToAdd = Instantiate(prefab,
-            whatSlotToEquip.transform.position,
-            whatSlotToEquip.transform.rotation);
+        itemToAdd = Instantiate(prefab);
 
-        itemToAdd.transform.SetParent(whatSlotToEquip.transform, false);
+        itemToAdd.transform.SetParent(whatSlotToEquip.transform);
+
+        itemToAdd.transform.localPosition = Vector3.zero;
+        itemToAdd.transform.localRotation = Quaternion.identity;
+        itemToAdd.transform.localScale = Vector3.one;
+
+        itemToAdd.SetActive(true);
 
         itemList.Add(itemName);
 
