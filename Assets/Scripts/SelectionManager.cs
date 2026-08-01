@@ -37,7 +37,9 @@ public class SelectionManager : MonoBehaviour
                 // Click lang kapag nakatutok sa item
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log("Item added to inventory " );
+                    InventorySystem.Instance.AddToInventory(interactable.GetItemName());
+
+                    Debug.Log("Item added to inventory");
                     Destroy(interactable.gameObject);
                 }
             }
