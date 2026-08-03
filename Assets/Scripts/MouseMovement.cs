@@ -5,33 +5,38 @@ public class MouseMovement : MonoBehaviour
     public float mouseSensitivity = 100f;
 
     float xRotation = 0f;
-    float YRotation = 0f;
+    float yRotation = 0f;
 
     void Start()
     {
-        //Locking the cursor to the middle of the screen and making it invisible
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
     {
-        //false means the inventory is closed, so we can move the camera and you can move also if walang == false yan isOpen lang makakagalaw yung mouse and camera
-        if (InventorySystem.Instance.isOpen == false) {
+        bool inventoryOpen = InventorySystem.Instance != null && InventorySystem.Instance.isOpen;
+        bool craftingOpen = CraftingSystem.Instance != null && CraftingSystem.Instance.isOpen;
+
+        if (!inventoryOpen && !craftingOpen)
+        {
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-            //control rotation around x axis (Look up and down)
             xRotation -= mouseY;
-
-            //we clamp the rotation so we cant Over-rotate (like in real life)
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-            //control rotation around y axis (Look up and down)
-            YRotation += mouseX;
+            yRotation += mouseX;
 
-            //applying both rotations
-            transform.localRotation = Quaternion.Euler(xRotation, YRotation, 0f);
+            transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
 
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }
