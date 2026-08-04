@@ -38,6 +38,7 @@ public class SelectionManager : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     InventorySystem.Instance.AddToInventory(interactable.GetItemName());
+                    CraftingSystem.Instance.RefreshNeededItems();
 
                     Debug.Log("Item added to inventory");
                     Destroy(interactable.gameObject);

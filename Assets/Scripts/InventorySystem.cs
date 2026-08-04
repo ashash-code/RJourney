@@ -101,6 +101,11 @@ public class InventorySystem : MonoBehaviour
 
         itemList.Add(itemName);
 
+        if (CraftingSystem.Instance != null)
+        {
+            CraftingSystem.Instance.RefreshNeededItems();
+        }
+
         Debug.Log("Added: " + itemName);
         Debug.Log("ItemList Count = " + itemList.Count);
         Debug.Log("=== AddToInventory END ===");
@@ -137,8 +142,40 @@ public class InventorySystem : MonoBehaviour
 
         return counter >= SlotList.Count;
     }
-}
+    public void RemoveItem(string nameToRemove, int amountToRemove)
+    {
+        int counter = amountToRemove;
+        for (var i = SlotList.Count - 1; i >= 0; i--)
+        {
+            if (SlotList[i].transform.childCount > 0)
+            {
+                if (SlotList[i].transform.GetChild(0).name == nameToRemove + "(Clone)" && counter != 0)
+                {
+                    Destroy(SlotList[i].transform.GetChild(0).gameObject);
+                    counter -= 1;
+                }
+            }
 
+        }
+    }
+    public void RecalculateList()
+    {
+        itemList.Clear();
+        foreach (GameObject slot in SlotList)
+        {
+            if (slot.transform.childCount > 0)
+            {
+                string name = slot.transform.GetChild(0).name;
+                string str1 = name;
+                string str2 = "(Clone)";
+
+                string result = name.Replace(str2, "");
+                itemList.Add(result);
+            }
+        }
+
+    }
+}
 
 
 
