@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
@@ -5,6 +6,17 @@ public class InteractableObject : MonoBehaviour
     public bool playerinRange;
     public string ItemName;
 
+    // Stores all world items
+    public static Dictionary<string, GameObject> WorldItems = new Dictionary<string, GameObject>();
+
+    private void Awake()
+    {
+        if (!WorldItems.ContainsKey(ItemName))
+        {
+            WorldItems.Add(ItemName, gameObject);
+            Debug.Log("Registered: " + ItemName);
+        }
+    }
     public string GetItemName()
     {
         return ItemName;
@@ -12,16 +24,6 @@ public class InteractableObject : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("Mouse Clicked");
-        }
-
-        if (playerinRange)
-        {
-            Debug.Log("Player In Range");
-        }
-
         if (playerinRange && Input.GetMouseButtonDown(0))
         {
             if (!InventorySystem.Instance.CheckIfFull())
@@ -29,9 +31,9 @@ public class InteractableObject : MonoBehaviour
                 InventorySystem.Instance.AddToInventory(ItemName);
 
                 Debug.Log("Item added to inventory: " + ItemName);
-                Debug.Log("ItemList Count: " + InventorySystem.Instance.itemList.Count);
 
-                Destroy(gameObject);
+                // Hide the item instead of destroying it
+                gameObject.SetActive(false);
             }
             else
             {
@@ -45,7 +47,6 @@ public class InteractableObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerinRange = true;
-            Debug.Log("Player entered range");
         }
     }
 
@@ -54,7 +55,6 @@ public class InteractableObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerinRange = false;
-            Debug.Log("Player left range");
         }
     }
 }

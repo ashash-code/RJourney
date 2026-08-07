@@ -24,7 +24,7 @@ public class CraftingSystem : MonoBehaviour
     public bool isOpen;
 
 
-    public BluePrint AxeBlp = new BluePrint("Axe", "Jar", "", 1, 0, 1);
+    public BluePrint AxeBlp = new BluePrint("Axe", "Jar", "Book 1", 1, 1, 2);
 
     public static CraftingSystem Instance { get; private set; }
 

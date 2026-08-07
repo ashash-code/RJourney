@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
 {
 
     [SerializeField] private Canvas canvas;
@@ -13,18 +13,24 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     public static GameObject itemBeingDragged;
     Vector3 startPosition;
+
     Transform startParent;
 
 
 
     private void Awake()
     {
+        Debug.Log("DragDrop attached to: " + gameObject.name);
 
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
-
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        InventorySystem.Instance.selectedItem = gameObject;
+        Debug.Log("Selected: " + gameObject.name);
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {

@@ -34,14 +34,13 @@ public class SelectionManager : MonoBehaviour
                 interaction_text.text = interactable.GetItemName();
                 interaction_Info_UI.SetActive(true);
 
-                // Click lang kapag nakatutok sa item
                 if (Input.GetMouseButtonDown(0))
                 {
                     InventorySystem.Instance.AddToInventory(interactable.GetItemName());
                     CraftingSystem.Instance.RefreshNeededItems();
 
                     Debug.Log("Item added to inventory");
-                    Destroy(interactable.gameObject);
+                    interactable.gameObject.SetActive(false);
                 }
             }
             else

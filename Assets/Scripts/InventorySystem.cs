@@ -25,6 +25,8 @@ public class InventorySystem : MonoBehaviour
 
     public bool isFull;
 
+    public GameObject selectedItem;
+
 
     private void Awake()
     {
@@ -145,19 +147,21 @@ public class InventorySystem : MonoBehaviour
     public void RemoveItem(string nameToRemove, int amountToRemove)
     {
         int counter = amountToRemove;
-        for (var i = SlotList.Count - 1; i >= 0; i--)
+
+        for (int i = SlotList.Count - 1; i >= 0; i--)
         {
             if (SlotList[i].transform.childCount > 0)
             {
-                if (SlotList[i].transform.GetChild(0).name == nameToRemove + "(Clone)" && counter != 0)
+                if (SlotList[i].transform.GetChild(0).name == nameToRemove + "(Clone)" && counter > 0)
                 {
                     Destroy(SlotList[i].transform.GetChild(0).gameObject);
-                    counter -= 1;
+                    counter--;
+                    break;
                 }
             }
-
         }
     }
+        
     public void RecalculateList()
     {
         itemList.Clear();
