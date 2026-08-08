@@ -57,14 +57,8 @@ public class CraftingSystem : MonoBehaviour
             Debug.LogError("ToolsButton does not have a Button component.");
             return;
         }
-
-        ToolsButton.onClick.AddListener(OpenToolsCatergory);
-
-
-
-
         ToolsButton = craftingScreenUI.transform.Find("ToolsButton").GetComponent<Button>();
-        ToolsButton.onClick.AddListener(delegate { OpenToolsCategory(); });
+        ToolsButton.onClick.AddListener(OpenToolsCategory);
 
         AxeReq1 = ToolsScreenUI.transform.Find("Axe").Find("req1").GetComponent<TMP_Text>();
         AxeReq2 = ToolsScreenUI.transform.Find("Axe").Find("req2").GetComponent<TMP_Text>();
@@ -80,12 +74,14 @@ public class CraftingSystem : MonoBehaviour
 
     }
 
+
+
     private void OpenToolsCategory()
     {
-
         craftingScreenUI.SetActive(false);
         ToolsScreenUI.SetActive(true);
 
+        RefreshNeededItems();
     }
 
     void CraftAnyltem(BluePrint blueprintToCraft)

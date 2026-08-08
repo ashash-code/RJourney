@@ -4,7 +4,10 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour
 {
     public bool playerinRange;
+
+    [Header("Item Info")]
     public string ItemName;
+    public Sprite ItemIcon;
 
     // Stores all world items
     public static Dictionary<string, GameObject> WorldItems = new Dictionary<string, GameObject>();
@@ -17,9 +20,15 @@ public class InteractableObject : MonoBehaviour
             Debug.Log("Registered: " + ItemName);
         }
     }
+
     public string GetItemName()
     {
         return ItemName;
+    }
+
+    public Sprite GetItemIcon()
+    {
+        return ItemIcon;
     }
 
     void Update()
@@ -28,11 +37,10 @@ public class InteractableObject : MonoBehaviour
         {
             if (!InventorySystem.Instance.CheckIfFull())
             {
-                InventorySystem.Instance.AddToInventory(ItemName);
+                InventorySystem.Instance.AddToInventory(ItemName, ItemIcon);
 
                 Debug.Log("Item added to inventory: " + ItemName);
 
-                // Hide the item instead of destroying it
                 gameObject.SetActive(false);
             }
             else

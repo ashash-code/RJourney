@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;
 
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -26,6 +28,11 @@ public class InventorySystem : MonoBehaviour
     public bool isFull;
 
     public GameObject selectedItem;
+
+
+    public GameObject pickupAlert;
+    public TMP_Text pickupName;
+    public Image pickupImage;
 
 
     private void Awake()
@@ -76,25 +83,20 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
-    public void AddToInventory(string itemName)
+    public void AddToInventory(string itemName, Sprite itemSprite)
     {
-        Debug.Log("=== AddToInventory START ===");
-
         whatSlotToEquip = FindNextEmptySlot();
-        Debug.Log("Slot found: " + whatSlotToEquip.name);
 
-        GameObject prefab = Resources.Load<GameObject>(itemName);
+        GameObject prefab = Resources.Load<GameObject>("" + itemName);
 
         if (prefab == null)
         {
-            Debug.LogError("Prefab NOT FOUND!");
+            Debug.LogError("Prefab NOT FOUND in Resources: " + itemName);
             return;
         }
-
         itemToAdd = Instantiate(prefab);
 
         itemToAdd.transform.SetParent(whatSlotToEquip.transform);
-
         itemToAdd.transform.localPosition = Vector3.zero;
         itemToAdd.transform.localRotation = Quaternion.identity;
         itemToAdd.transform.localScale = Vector3.one;
@@ -103,16 +105,15 @@ public class InventorySystem : MonoBehaviour
 
         itemList.Add(itemName);
 
+        TriggerPickupPopUp(itemName, itemSprite);
+
         if (CraftingSystem.Instance != null)
         {
             CraftingSystem.Instance.RefreshNeededItems();
         }
-
-        Debug.Log("Added: " + itemName);
-        Debug.Log("ItemList Count = " + itemList.Count);
-        Debug.Log("=== AddToInventory END ===");
     }
-    private GameObject FindNextEmptySlot()
+
+   private GameObject FindNextEmptySlot()
     {
         foreach (GameObject slot in SlotList)
 
@@ -161,25 +162,46 @@ public class InventorySystem : MonoBehaviour
             }
         }
     }
-        
+
+    public void AddToInventory(string itemName)
+    {
+        AddToInventory(itemName, null);
+    }
+
+
     public void RecalculateList()
     {
         itemList.Clear();
+
         foreach (GameObject slot in SlotList)
         {
             if (slot.transform.childCount > 0)
             {
-                string name = slot.transform.GetChild(0).name;
-                string str1 = name;
-                string str2 = "(Clone)";
-
-                string result = name.Replace(str2, "");
+                string result = slot.transform.GetChild(0).name.Replace("(Clone)", "");
                 itemList.Add(result);
             }
         }
+    }
+    public void TriggerPickupPopUp(string itemName, Sprite itemSprite)
+    {
+        pickupAlert.SetActive(true);
+        pickupName.text = itemName;
+        pickupImage.sprite = itemSprite;
 
+        StopAllCoroutines();
+        StartCoroutine(HidePickupPopup());
+    }
+
+    IEnumerator HidePickupPopup()
+    {
+        yield return new WaitForSeconds(2f);
+        pickupAlert.SetActive(false);
     }
 }
+
+
+
+
 
 
 

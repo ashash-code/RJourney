@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class SelectionManager : MonoBehaviour
@@ -7,6 +8,9 @@ public class SelectionManager : MonoBehaviour
     private TMP_Text interaction_text;
 
     public float interactionDistance = 3f;
+
+    public Image centerDotImage;
+    public Image handIcon;
 
     void Start()
     {
@@ -18,6 +22,9 @@ public class SelectionManager : MonoBehaviour
         }
 
         interaction_Info_UI.SetActive(false);
+
+        centerDotImage.gameObject.SetActive(true);
+        handIcon.gameObject.SetActive(false);
     }
 
     void Update()
@@ -25,32 +32,51 @@ public class SelectionManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
+        // Default
+        interaction_Info_UI.SetActive(false);
+        centerDotImage.gameObject.SetActive(true);
+        handIcon.gameObject.SetActive(false);
+
         if (Physics.Raycast(ray, out hit, interactionDistance))
         {
             InteractableObject interactable = hit.transform.GetComponent<InteractableObject>();
 
-            if (interactable != null)
+            if (interactable != null && interactable.gameObject.activeSelf)
             {
-                interaction_text.text = interactable.GetItemName();
+                // Show item name
                 interaction_Info_UI.SetActive(true);
+                interaction_text.text = interactable.GetItemName();
+
+                // Show hand cursor
+                centerDotImage.gameObject.SetActive(false);
+                handIcon.gameObject.SetActive(true);
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    InventorySystem.Instance.AddToInventory(interactable.GetItemName());
-                    CraftingSystem.Instance.RefreshNeededItems();
+                    if (!InventorySystem.Instance.CheckIfFull())
+                    {
+                        InventorySystem.Instance.AddToInventory(
+                            interactable.GetItemName(),
+                            interactable.GetItemIcon()
+                        );
 
-                    Debug.Log("Item added to inventory");
-                    interactable.gameObject.SetActive(false);
+                        if (CraftingSystem.Instance != null)
+                        {
+                            CraftingSystem.Instance.RefreshNeededItems();
+                        }
+
+                        interactable.gameObject.SetActive(false);
+
+                        interaction_Info_UI.SetActive(false);
+                        handIcon.gameObject.SetActive(false);
+                        centerDotImage.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.Log("Inventory is full");
+                    }
                 }
             }
-            else
-            {
-                interaction_Info_UI.SetActive(false);
-            }
-        }
-        else
-        {
-            interaction_Info_UI.SetActive(false);
         }
     }
 }
