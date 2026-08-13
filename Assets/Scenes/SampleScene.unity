@@ -221,7 +221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a664b1322a97d49b69e5db50304e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthBar
-  slider: {fileID: 0}
   healthCounter: {fileID: 895878849}
   playerState: {fileID: 625056901}
 --- !u!1 &22072947
@@ -6109,7 +6108,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1323661762}
   - component: {fileID: 1323661763}
-  - component: {fileID: 1323661764}
   m_Layer: 0
   m_Name: InventorySystem
   m_TagString: Untagged
@@ -6153,21 +6151,6 @@ MonoBehaviour:
   pickupAlert: {fileID: 449006475}
   pickupName: {fileID: 1103242989}
   pickupImage: {fileID: 0}
---- !u!114 &1323661764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1323661761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80a664b1322a97d49b69e5db50304e48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthBar
-  slider: {fileID: 0}
-  healthCounter: {fileID: 0}
-  playerState: {fileID: 0}
 --- !u!1 &1332026563
 GameObject:
   m_ObjectHideFlags: 0

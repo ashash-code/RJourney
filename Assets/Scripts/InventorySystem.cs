@@ -32,7 +32,7 @@ public class InventorySystem : MonoBehaviour
 
     public GameObject pickupAlert;
     public TMP_Text pickupName;
-    public Image pickupImage;
+    
 
 
     private void Awake()
@@ -186,7 +186,7 @@ public class InventorySystem : MonoBehaviour
     {
         pickupAlert.SetActive(true);
         pickupName.text = itemName;
-        pickupImage.sprite = itemSprite;
+        
 
         StopAllCoroutines();
         StartCoroutine(HidePickupPopup());
