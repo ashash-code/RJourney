@@ -30,6 +30,9 @@ public class InventorySystem : MonoBehaviour
     public GameObject selectedItem;
 
 
+    public GameObject ItemInfoUI;
+
+
     public GameObject pickupAlert;
     public TMP_Text pickupName;
     

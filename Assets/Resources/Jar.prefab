@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3350817909980073932}
   - component: {fileID: 5573128944153503310}
   - component: {fileID: -1473592301905001192}
+  - component: {fileID: -7302003283893742683}
   m_Layer: 5
   m_Name: Jar
   m_TagString: Untagged
@@ -115,3 +116,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e3642dcfdbd23349b65cce5cd3f0ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscardItems
+--- !u!114 &-7302003283893742683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5151784685139632108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8fe1cbae9b50d46a3e99a2b6b09986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryItem
+  isTrashable: 0
+  thisName: Jar
+  thisDescription: I DONT KNOW BA
+  isConsumable: 0
+  healthEffect: 0
+  caloriesEffect: 0

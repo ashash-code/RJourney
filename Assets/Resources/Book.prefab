@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1821728426099720129}
   - component: {fileID: -6427114944493992480}
   - component: {fileID: -4102915039843539799}
+  - component: {fileID: -5523526106948858219}
   m_Layer: 5
   m_Name: Book
   m_TagString: Untagged
@@ -115,3 +116,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &-5523526106948858219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6459495594289340825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8fe1cbae9b50d46a3e99a2b6b09986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryItem
+  isTrashable: 0
+  thisName: Book
+  thisDescription: Noli me Tangere
+  isConsumable: 0
+  healthEffect: 0
+  caloriesEffect: 0
