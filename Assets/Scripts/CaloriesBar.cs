@@ -4,57 +4,48 @@ using UnityEngine.UI;
 
 public class CaloriesBar : MonoBehaviour
 {
-
-
     public Slider slider;
     public TMP_Text caloriesCounter;
     public GameObject playerState;
 
-    private float currentCalories;
-    private float maxCalories;
+    private PlayerState player;
 
-    void Start()
+    private void Start()
     {
         if (slider == null)
         {
             slider = GetComponent<Slider>();
         }
+
+        if (playerState != null)
+        {
+            player = playerState.GetComponent<PlayerState>();
+        }
+
+        if (slider != null)
+        {
+            slider.minValue = 0f;
+            slider.maxValue = 1f;
+        }
     }
 
-    void Update()
+    private void Update()
     {
-        if (playerState == null)
-        {
-            return;
-        }
-
-        PlayerState player = playerState.GetComponent<PlayerState>();
-
         if (player == null)
-        {
             return;
+
+        if (player.maxCalories <= 0f)
+            return;
+
+        slider.value =
+            player.currentCalories / player.maxCalories;
+
+        if (caloriesCounter != null)
+        {
+            caloriesCounter.text =
+                Mathf.RoundToInt(player.currentCalories)
+                + " / "
+                + Mathf.RoundToInt(player.maxCalories);
         }
-
-        currentCalories = player.currentCalories;
-        maxCalories = player.maxCalories;
-
-        float fillValue = currentCalories / maxCalories;
-
-        slider.value = fillValue;
-
-        caloriesCounter.text = Mathf.RoundToInt(currentCalories) + " / " + Mathf.RoundToInt(maxCalories);
     }
-
-
-
-
-
-
-
-
-    
-        
-    }
-
-    // Update is called once per frame
-  
+}

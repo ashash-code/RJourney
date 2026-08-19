@@ -1,54 +1,83 @@
 using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class PlayerState : MonoBehaviour
 {
     public static PlayerState Instance { get; private set; }
 
-    // player health
+    [Header("Player Health")]
     public float currentHealth;
-    public float maxHealth;
+    public float maxHealth = 100f;
 
-    // player calories/food
+    [Header("Player Calories")]
     public float currentCalories;
-    public float maxCalories;
+    public float maxCalories = 100f;
 
-    float distanceTravelled = 0;
-    Vector3 lastPosition;
-
+    [Header("Movement")]
     public GameObject playerBody;
+
+    private float distanceTravelled = 0f;
+    private Vector3 lastPosition;
 
     private void Awake()
     {
         Instance = this;
     }
 
-    void Start()
+    private void Start()
     {
         currentHealth = maxHealth;
         currentCalories = maxCalories;
 
-        lastPosition = playerBody.transform.position;
+        if (playerBody != null)
+            lastPosition = playerBody.transform.position;
+        else
+            lastPosition = transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        distanceTravelled += Vector3.Distance(playerBody.transform.position, lastPosition);
-        lastPosition = playerBody.transform.position;
+        Vector3 currentPosition;
 
-        //eto kung gusto mo mabagan ng calories yung player mo
-        if (distanceTravelled >= 20)
+        if (playerBody != null)
+            currentPosition = playerBody.transform.position;
+        else
+            currentPosition = transform.position;
+
+        distanceTravelled += Vector3.Distance(
+            currentPosition,
+            lastPosition
+        );
+
+        lastPosition = currentPosition;
+
+        // Every 20 distance = -1 calorie
+        if (distanceTravelled >= 20f)
         {
-            distanceTravelled = 0;
+            distanceTravelled = 0f;
             currentCalories -= 1f;
+
+            currentCalories = Mathf.Clamp(
+                currentCalories,
+                0f,
+                maxCalories
+            );
         }
 
+        // Test damage
         if (Input.GetKeyDown(KeyCode.N))
         {
             currentHealth -= 10f;
         }
+    }
+
+    public void AddCalories(float amount)
+    {
+        currentCalories += amount;
+
+        currentCalories = Mathf.Clamp(
+            currentCalories,
+            0f,
+            maxCalories
+        );
     }
 }
